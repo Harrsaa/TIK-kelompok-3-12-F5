@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peluang | Matematika Kelas 12</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- SKEMA WARNA ASLI DARI DESAIN AWAL --- */
+        :root {
+            --color-h1: red;
+            --color-h2-h3: purple;
+            --color-jumbotron-footer: royalblue;
+            --color-nav-link: darkblue;
+            --color-nav-bg: gainsboro;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --formula-bg: #e6e6fa; /* Lavender muda */
+            --body-bg: #f8f9fa; 
+            --border-blue: royalblue; /* Warna Garis Biru */
+        }
+
+        /* --- GLOBAL & TYPOGRAPHY --- */
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--body-bg); 
+            color: #333; 
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        h2 {
+            color: var(--color-h2-h3);
+            border-left: 5px solid var(--color-h2-h3); 
+            padding-left: 10px;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd; 
+        }
+        
+        h3 {
+            color: var(--color-h2-h3);
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+
+        /* --- JUMBOTRON / HEADER UTAMA --- */
+        .jumbotron {
+            font-size: 20px;
+            padding: 70px 20px;
+            background-color: var(--color-jumbotron-footer);
+            color: white;
+            text-align: center;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+        .jumbotron h1 {
+            color: white; 
+            font-size: 3.5em;
+            font-weight: 700;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            background-color: var(--color-nav-bg);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        nav a {
+            font-size: 18px;
+            font-weight: 500;
+            text-decoration: none;
+            color: var(--color-nav-link);
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav a:hover {
+            font-weight: 700;
+            color: white; 
+            background-color: var(--color-jumbotron-footer);
+        }
+
+        /* --- MAIN CONTENT LAYOUT --- */
+        main {
+            padding: 20px;
+            max-width: 1000px; 
+            margin: 30px auto; 
+        }
+
+        main > div { 
+            display: flex;
+            flex-flow: column nowrap;
+            gap: 25px;
+        }
+
+        /* --- CARD STYLE (DENGAN GARIS BIRU) --- */
+        .card {
+            background-color: white;
+            box-shadow: 0 8px 20px var(--shadow-color); 
+            border-radius: 12px; 
+            padding: 30px; 
+            margin-top: 0; 
+            transition: transform 0.3s;
+            /* PENAMBAHAN GARIS BIRU DI PINGGIR KOTAK MATERI */
+            border-left: 5px solid var(--border-blue); 
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- FRACTION & FORMULA STYLE --- */
+        .fraction {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            margin: 0 10px;
+            padding: 0 5px;
+            font-size: 1.2em;
+        }
+        .fraction > span {
+            display: block;
+            border-top: 2px solid black;
+            padding-top: 5px;
+            padding-bottom: 2px;
+        }
+        
+        .formula-box {
+            font-size: 1.4em;
+            padding: 20px;
+            border: 3px solid var(--color-jumbotron-footer);
+            border-radius: 10px;
+            display: block;
+            margin: 25px 0;
+            background-color: var(--formula-bg);
+            text-align: center;
+            font-weight: 700;
+        }
+        .formula-box p {
+            margin: 0;
+        }
+
+        /* Styling untuk list di dalam artikel agar rapi */
+        .card ul, .card ol {
+            padding-left: 25px;
+        }
+        .card li {
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 30px;
+            color: white; 
+            background-color: var(--color-jumbotron-footer);
+            text-align: center;
+            font-weight: bold;
+            margin-top: 40px;
+        }
+        
+        /* Kalkulator Styling */
+        #calculator-card {
+            background-color: #fff3cd; /* Warna kuning muda */
+            border: 1px solid #ffeeba;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--border-blue); /* Garis biru di kalkulator */
+        }
+
+        #calculator-card select, 
+        #calculator-card input[type="number"], 
+        #calculator-card button {
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-family: 'Quicksand', sans-serif;
+        }
+        #calculator-card button {
+            background-color: var(--color-jumbotron-footer);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #calculator-card button:hover {
+            background-color: var(--color-nav-link);
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            border-left: 5px solid var(--color-h2-h3);
+            font-weight: 700;
+            color: #333;
+        }
+    </style>
+    
+</head>
+<body>
+<header>
+    <div class="jumbotron">
+        <h1 id="home">Peluang (Probabilitas)</h1> 
+        <p>Kelas 12 | Bab Peluang | Semester 2.</p>
+    </div>
+    
+    <nav>
+    <ul>
+        <li>
+            <a href="#home"> Home </a>
+        </li>
+        <li> 
+            <a href="#peluang"> Pengertian Peluang </a>
+        </li>
+        <li>
+            <a href="#permutasi">Peluang Permutasi </a>
+        </li>
+        <li>
+            <a href="#Kombinasi">Peluang Kombinasi </a>
+        </li>
+    </ul>
+    </nav>
+    
+</header>
+<main>
+ <div>
+    <article id="peluang" class="card">
+        <h2>Pengertian peluang</h2>
+        <ul>   
+            <li> 
+                Ukuran besar kemungkinan terjadinya suatu peristiwa.
+            </li> <li>
+                Ditulis dengan P(A), artinya Peluang peristiwa A.
+                </li> <li>
+                Memiliki nilai selalu antara 0 &le; P(A) &le; 1. 
+            </li>
+        </ul> <p>   </p> 
+        
+    </article> 
+
+    <article class="card">
+        <h2> Rumus dasar peluang </h2>
+        <div class="formula-box">
+            <p> P(A) =  <span class="fraction">jumlah kejadian yang diharapkan<span>jumlah semua kejadian yang mungkin</span></span> </p>
+        </div>
+        <h4> Contoh: </h4> 
+        <p> Berapa peluang muncul angka 9 pada 2 dadu yang dilakukan bersamaan ? </p>
+    </article>
+
+     <article class="card">
+         
+         <h2>
+             Ruang Sampel dan Titik Sampel
+         </h2>
+         <p>
+             <ol> 
+                 <li>
+                     Ruang sampel (S) = semua hasil yang mungkin dari suatu percobaan.
+                 </li>
+                 <li>
+                     Titik sampel = satu hasil tunggal dalam ruang sampel.
+                 </li>
+                 <ul>
+                     <li> 
+                         Contoh: <br>
+                         
+                                               
+                        -  Ruang Sampel:<br</li>
+                         Melempar koin → S = {Gambar, Angka} <br>
+                         Melempar dadu → S = {1, 2, 3, 4, 5, 6} <br>
+                         
+                        -  Titik Sampel:<br> 
+                         dari Dadu tersebut berapa peluang mata dadu 3, maka <strong>3 adalah Titik Sampel nya</strong>.
+                     </li>
+                 </ul>
+             </ol>
+         </p>
+     </article>
+     
+    <article class="card">
+        <h2> Jenis Jenis Peluang </h2>
+        <ol>
+            <li> 
+                <section id="permutasi" >
+                <h3>1. Peluang dengan Permutasi</h3> 
+                <p>
+                    Peluang yang tidak memperhatikan urutan, seperti; AB &ne; BA <br> 
+                </p>
+                <ul>
+                    <li>Rumus : 
+                    <div class="formula-box" style="font-size: 1.2em;">
+                     <p><sub>n</sub>P<sub>r</sub> = <span class="fraction">n!<span>(n-r)!</span></span> 
+                    </div>
+                    <br> <strong>n</strong> = Banyaknya sampel  <br> <strong>r</strong>  = banyaknya sampe yang mau diambil</li>
+                    <li> Contoh: Dari 7 Tokoh negara akan dipilih Pasangan Capres dan Cawapres, tentukan berapa kemungkinan yang ada?
+                    <br> Jawab: br> <sub>7</sub>P<sub>2</sub> = <span class="fraction">7!<span>(7-2)!</span></span> = <span class= "fraction">7.6.5!<span>5!</span></span> = 7.6 = 42 Cara 
+                    </li>
+                </ul>
+                
+                <h3 style="border-bottom: none;">Permutasi dengan beberapa unsur yang sama</h3>
+                <p>Cara menghitung banyaknya susunan dari beberapa benda, jika ada benda yang sama.</p>
+                <ul>
+                    <li>Rumus:
+                    <div class="formula-box" style="font-size: 1.2em;">
+<sub>n</sub>P<sub>(k,l,m)</sub> = <span class="fraction">n! <span>k!.l!.m!</span></span>
+                    </div>
+                    </li>
+                    <li> Contoh: Berapa banyak kata yang dapat disusun dari huruf huruf MATEMATIKA?
+                    <br> Banyak huruf penyusun MATEMATIKA = 10 huruf (sebagai <strong>n</strong>)<br>
+                                 Banyak huruf yang sama: <br><br> Huruf M = 2 Huruf, huruf A =  huruf, dan huruf T = 2 huruf <br>
+                            Maka banyak kata yang dapat disusun adalah: <sub>n</sub>P<sub>(k,l,m)</sub> = <span class="fraction">10! <span>2!.3!.2!</span></span> = 151.200 cara.
+                    </li>
+                </ul>
+
+                <h3 style="border-bottom: none;">Permutasi Siklis (Lingkaran)</h3>
+                <p> Permutasi yang susunannya melingkar, sehingga tidak memiliki posisi awal dan akhir yang jelas.  </p>
+                <ul>
+                    <li>Rumus:
+                    <div class="formula-box" style="font-size: 1.2em;">
+                      <sub>n</sub>P<sub>siklis</sub> = (n-1)!
+                    </div>
+                    </li>
+                    <li> Contoh: Sebuah acara dihadiri 10 orang dengan duduk melingkar, banyaknya cara duduk ke-10 orang tersebut adalah?
+                    <br> <sub>n</sub>P<sub>siklis</sub> 
+                                = (n-1!)
+                                    = (10-1)!
+                                    = (9!) = 362.880 Cara
+                    </li>
+                </ul>
+                </section>
+            </li>
+            
+            <li> 
+                <section id="Kombinasi">
+                <h3> Peluang dengan Kombinasi</h3>
+                <p> 
+                    Peluang yang memerhatikan urutan, AB = BA
+                </p> 
+                <ul>
+                    <li> Rumus: 
+                    <div class="formula-box" style="font-size: 1.2em;">
+                    <sub>n</sub>C<sub>r</sub> = <span class="fraction">n!<span>(n-r)!r!</span></span> 
+                    </div>
+                    <br> Contoh: Ayu ingin membeli 2 baju. Ada 8 buah baju. Banyaknya cara memilih baju ada berapa cara?
+                    <br> Jawab: <br> <sub>8</sub>C<sub>2</sub> = <span class="fraction">8!<span>(8-2)!2!</span></span> = <span class= "fraction">8.7.6!<span>6!.2!</span></span> = 4.7 = 28 Cara 
+                    </li>
+                </ul>
+                </section>
+            </li>
+        </ol>
+    </article>
+    
+    <article id="calculator-card" class="card">
+        <h2>🧮 Kalkulator Peluang & Kombinatorika</h2>
+        
+        <label for="operation">Pilih Operasi:</label>
+        <select id="operation" onchange="updateInputs()">
+            <option value="basic">Peluang Dasar (n(A) / n(S))</option>
+            <option value="perm">Permutasi (nPr)</option>
+            <option value="comb">Kombinasi (nCr)</option>
+        </select>
+        
+        <div id="inputs" style="margin-top: 15px;">
+            </div>
+        
+        <button onclick="calculate()">Hitung</button>
+        
+        <div id="result">
+            Hasil akan muncul di sini.
+        </div>
+    </article>
+
+ </div> 
+</main>
+
+<footer>
+    <p> Belajar Peluang © 2025, Harsa Academy</p>
+</footer>
+
+<script>
+    // --- FUNGSI UTAMA KALKULATOR (JAVASCRIPT) ---
+    
+    // Fungsi Faktorial
+    function factorial(n) {
+        if (n < 0) return NaN;
+        if (n === 0 || n === 1) return 1;
+        let result = 1;
+        for (let i = 2; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
+
+    // Fungsi untuk memperbarui Input berdasarkan operasi yang dipilih
+    function updateInputs() {
+        const operation = document.getElementById('operation').value;
+        const inputsDiv = document.getElementById('inputs');
+        inputsDiv.innerHTML = '';
+        
+        if (operation === 'basic') {
+            inputsDiv.innerHTML = `
+                <label for="nA">n(A) (Kejadian Diharapkan):</label>
+                <input type="number" id="nA" min="0" value="1" style="width: 80px;">
+                <label for="nS">n(S) (Total Kejadian):</label>
+                <input type="number" id="nS" min="1" value="6" style="width: 80px;">
+            `;
+        } else if (operation === 'perm' || operation === 'comb') {
+            inputsDiv.innerHTML = `
+                <label for="n">n (Total Unsur):</label>
+                <input type="number" id="n" min="0" value="7" style="width: 80px;">
+                <label for="r">r (Dipilih):</label>
+                <input type="number" id="r" min="0" value="2" style="width: 80px;">
+            `;
+        }
+    }
+
+    // Fungsi untuk menjalankan kalkulasi
+    function calculate() {
+        const operation = document.getElementById('operation').value;
+        const resultDiv = document.getElementById('result');
+        
+        // Reset error style
+        resultDiv.style.backgroundColor = 'white';
+        resultDiv.style.color = '#333';
+        resultDiv.innerHTML = '';
+
+        try {
+            if (operation === 'basic') {
+                const nA = parseInt(document.getElementById('nA').value);
+                const nS = parseInt(document.getElementById('nS').value);
+                
+                if (nS <= 0 || nA < 0 || isNaN(nA) || isNaN(nS)) {
+                    throw new Error("n(A) harus >= 0 dan n(S) harus > 0.");
+                }
+                if (nA > nS) {
+                    throw new Error("n(A) tidak boleh lebih besar dari n(S).");
+                }
+
+                const peluang = nA / nS;
+                resultDiv.innerHTML = `Peluang: ${nA} / ${nS} = **${peluang.toFixed(4)}**`;
+
+            } else {
+                const n = parseInt(document.getElementById('n').value);
+                const r = parseInt(document.getElementById('r').value);
+
+                if (r > n || n < 0 || r < 0 || isNaN(n) || isNaN(r)) {
+                    throw new Error("Pastikan n >= r dan n, r adalah bilangan bulat non-negatif.");
+                }
+
+                if (operation === 'perm') {
+                    // nPr = n! / (n-r)!
+                    const perm = factorial(n) / factorial(n - r);
+                    resultDiv.innerHTML = `Permutasi (${n}P${r}): **${perm} Cara**`;
+                } else if (operation === 'comb') {
+                    // nCr = n! / (n-r)!r!
+                    const comb = factorial(n) / (factorial(r) * factorial(n - r));
+                    resultDiv.innerHTML = `Kombinasi (${n}C${r}): ${comb} Cara`;
+                }
+            }
+        } catch (error) {
+            resultDiv.innerHTML = `Kesalahan: ${error.message}`;
+            resultDiv.style.backgroundColor = '#f8d7da'; 
+            resultDiv.style.color = '#721c24'; 
+        }
+    }
+
+    // Panggil saat halaman dimuat
+    window.onload = updateInputs;
+</script>
+
+</body>
+</html>
